@@ -1,3 +1,12 @@
+
+//import con export default y si queremos agregar otras cosas seria abriendo parentesis
+//teacher es el default export y promoted es el named export
+import Teacher, { promoted } from "./teacher";
+
+//import sin export default a cuando se utiliza parentesis se le llama named imports
+//import {Teacher} from "./teacher";
+import {Person} from "./person";
+
 //En es6 se introdujeron las variables let y const
 
 //diferencia entre let y var
@@ -60,7 +69,7 @@ walk();
 
 
 //arrow functions esto son basicamente formas mas cortas para escribir funciones y hace que el codigo sea mas corto
-// y mas facil de leer en muchos casos
+// y mas facil de leer en muchos casos asi que debemos priorizar utilizar arrow functions
 
 //old javaScript functions
 const squareOld = function (number) {
@@ -77,4 +86,138 @@ console.log(squareNew(6));
 console.log(sum(4,5));
 
 
-//arrow functions and this
+//arrow functions and this este punto nos quiere reafirmar que utilicemos arrow functions
+
+//con arrofunctions podremos mostrar la referencia al objeto de forma correcta
+//aunque tengamos una de setTimeout que en el caso de funcion vieja no se puede
+const person3 = {
+    talk() {
+        setTimeout(() => {
+            console.log("this", this);
+        }, 1000);
+    }
+};
+
+person3.talk();
+
+
+//Array.map Este es el metodo utilizado muy seguido en react para recorrer listas y arreglos
+const colors = ["red", "green", "blue"]
+
+//sintaxis este requiere una funcion dentro y de forma simplificada mediante arrow functions queda asi
+const items = colors.map((color) =>
+    //Esta es la forma correcta para agregar texto y variables
+     `<li>${color}<li>`);
+
+console.log(items);
+
+
+//object destructuring
+
+const address = {
+    street: 'test',
+    city: 'test1',
+    country: 'test2',
+}
+
+//Ejemplo imaginemos que deseamos guardar los valores de este objeto en variables separadas
+
+//forma sin destructuring, el problema de este codigo es la repeticion que hay de address
+// const street = address.street;
+// const city = address.city;
+// const country = address.country;
+
+//forma con destructuring
+//las variables recibira el valor que matchee con sus nombres asi que si deben llamarse iguales o
+//debemos utilizar un alias
+const {street, city, country} = address
+
+console.log(street, city, country);
+
+//podemos tambien utilizar solo un valor y darle un alias, st recibira el valor de st
+const {street: st} = address;
+
+console.log(st);
+
+//Spread Operator (...) este tambien es muy utilizado en react
+
+//Digamos que queremos combinar 2 arreglos
+
+const first = [1,2,3];
+const second = [4,5,6];
+
+//forma vieja
+//const combined = first.concat(second);
+
+//forma nueva si utilizamos el spread ... ante de arreglos esto quiere decir que obtendremos todos los items
+//de cada arreglo que le pongamos antes el spread operator ...
+
+const newCombined = [...first, 'a', ...second, 'b'];
+
+console.log(newCombined);
+
+//tambien podemos clonar arreglos, variables, objetos
+
+const first1 = {name: "mosh"};
+const second1 = {job: "instructor"};
+
+const combinedObjects = {...first1, ...second1, location: "australia"};
+
+console.log(combinedObjects);
+
+//clonar objeto
+
+const clone = {...first1};
+
+console.log("clone", clone);
+
+//classes
+
+//creacion de clase
+class Person1 {
+
+    //constructor
+    constructor(name) {
+        this.name = name;
+    }
+
+    walk() {
+        console.log("walk");
+    }
+}
+
+//instanciando una clase
+const personObject = new Person1("mosh");
+
+console.log(personObject.name);
+
+// a las clases tambien se le implementan herencias, yo omitire esto, pues solo son conceptos que ya se
+//y no lo estare utilizando en react
+
+//ejemplo simple  ya con aplicar extends ya utilizo herencia
+class Teacher1 extends Person1{
+
+    //constructor con herencia
+    constructor(name, degree) {
+        super(name);
+        this.degree = degree;
+    }
+
+    teach(){
+        console.log("teach");
+    }
+}
+
+
+const teacher1 = new Teacher1("Mosh", "msc");
+
+//modules vamos a llevar las distintas clases a distintos archivos
+
+//ejemplo utilizando las clases creadas en otros archivos
+
+const teacher = new Teacher("Mosh", "msc");
+
+teacher.teach();
+
+
+//named and default exports

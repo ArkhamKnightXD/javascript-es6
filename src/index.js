@@ -221,3 +221,8 @@ teacher.teach();
 
 
 //named and default exports
+
+const a = (test, test2) => test*test2;
+
+
+console.log(a(4,5));
